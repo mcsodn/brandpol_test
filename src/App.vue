@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="layout-container">
-    <h1 class="">HelloWorld</h1>
+  <div class="">
+    <h1 class="">Привет, Мир!</h1>
   </div>
 </template>
