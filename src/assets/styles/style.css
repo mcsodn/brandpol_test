@@ -8,6 +8,10 @@
   --color-customgray: #8e8e93;
   --color-customblack: #121216;
   --color-customwhite: #fafafa;
+  --color-pc-orange: #f96e1a;
+  --color-pc-green: #22aa6a;
+  --color-pc-yellow: #f7bc19;
+  --color-pc-blue: #4d8ae6;
 }
 
 :root {
@@ -27,7 +31,7 @@
 }
 
 .section-wrapper {
-  @apply flex w-full max-w-[1440px] items-start;
+  @apply flex w-full max-w-[1440px] min-w-[1318px] items-start px-4;
 }
 
 .statistic-card-title::before {
@@ -42,4 +46,12 @@
   vertical-align: middle;
   margin-left: 0.5rem;
   line-height: 100%;
+}
+
+.percent-style {
+  @apply leading-[140%] font-semibold;
+}
+
+.hidden {
+  display: none;
 }
