@@ -1,4 +1,5 @@
 <script setup>
+import StatisticCards from "./components/StatisticCards.vue";
 import { ref } from "vue";
 
 const selectedCity = ref();
@@ -26,16 +27,11 @@ const cities = ref([
         label="Настройки"
         severity="contrast"
         variant="text"
+        class="text-linkblue!"
       />
     </div>
     <div class="section-wrapper">
-      <Card class="w-1/4">
-        <template #title>Планеты</template>
-        <template #content>
-          <p class="m-0">Всего планет: 500</p>
-          <p class="m-0">Планет в фильме: 350</p>
-        </template>
-      </Card>
+      <StatisticCards />
     </div>
     <div class="section-wrapper">
       <Card class="w-full">

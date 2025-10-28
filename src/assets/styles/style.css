@@ -3,12 +3,22 @@
 
 @import "./fonts.css";
 
+@theme {
+  --color-linkblue: #0057db;
+  --color-customgray: #8e8e93;
+  --color-customblack: #121216;
+  --color-customwhite: #fafafa;
+}
+
 :root {
   font-family: "MuseoSansCyrl", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
   line-height: 1.5;
+  letter-spacing: 0%;
 
   color-scheme: none;
-  background: #eee;
+  background: #fafafa;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -18,4 +28,18 @@
 
 .section-wrapper {
   @apply flex w-full max-w-[1440px] items-start;
+}
+
+.statistic-card-title::before {
+  content: url(../icons/drag_icon.svg);
+  vertical-align: middle;
+  margin-right: 1rem;
+  line-height: 100%;
+}
+
+.statistic-card-title::after {
+  content: url(../icons/info_icon.svg);
+  vertical-align: middle;
+  margin-left: 0.5rem;
+  line-height: 100%;
 }
