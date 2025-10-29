@@ -11,8 +11,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mt-12 flex w-full flex-col items-center gap-1">
-    <div class="section-wrapper gap-4">
+  <div class="mt-12 mb-12 flex w-full flex-col items-center gap-1">
+    <div class="section-wrapper mb-4 gap-4">
       <Select
         v-model="store.selectedFilm"
         :options="store.films"
@@ -55,20 +55,22 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div v-else class="section-wrapper">
-      <StatisticCards />
-    </div>
-    <div class="section-wrapper">
-      <StarshipsStatistics />
-    </div>
-    <div class="section-wrapper">
-      <Card class="card-style" style="box-shadow: 2px 2px 14px 0px #01174f17">
-        <template #content>
-          <div class="card-content-wrapper">
-            <h2 class="chart-card-title">Корабли по классам</h2>
-          </div>
-        </template>
-      </Card>
+    <div v-else class="flex flex-col gap-1">
+      <div class="section-wrapper">
+        <StatisticCards />
+      </div>
+      <div class="section-wrapper">
+        <StarshipsStatistics />
+      </div>
+      <div class="section-wrapper">
+        <Card class="card-style" style="box-shadow: 2px 2px 14px 0px #01174f17">
+          <template #content>
+            <div class="card-content-wrapper">
+              <h2 class="chart-card-title">Корабли по классам</h2>
+            </div>
+          </template>
+        </Card>
+      </div>
     </div>
   </div>
 </template>
