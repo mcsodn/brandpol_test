@@ -66,7 +66,6 @@ export const useStarWarsStore = defineStore("starWars", {
         console.error("Error fetching films:", error);
       } finally {
         this.loading.films = false;
-        console.log(this.films);
       }
     },
 
@@ -94,13 +93,24 @@ export const useStarWarsStore = defineStore("starWars", {
         this.vehicles.total = vehiclesRes.data.count;
         this.species.total = speciesRes.data.count;
         this.starships.total = starshipsRes.data.count;
+
+        if (!this.selectedFilm) return;
+
+        this.planets.inFilm = this.selectedFilm.planets.length;
+        this.characters.inFilm = this.selectedFilm.characters.length;
+        this.vehicles.inFilm = this.selectedFilm.vehicles.length;
+        this.species.inFilm = this.selectedFilm.species.length;
+        this.starships.inFilm = this.selectedFilm.starships.length;
       } catch (error) {
         this.error = "Failed to fetch statistics";
         console.error("Error fetching statistics:", error);
       } finally {
         this.loading.statistics = false;
-        console.log(this.planets);
       }
+    },
+
+    async selectFilm() {
+      await this.calcStats();
     },
   },
 });

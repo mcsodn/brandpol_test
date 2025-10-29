@@ -42,7 +42,6 @@ const statsData = [
     colorClass: "text-pc-blue",
   },
 ];
-console.log("🚀 ~ statsData:", statsData);
 </script>
 
 <template>
