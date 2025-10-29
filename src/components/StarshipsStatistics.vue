@@ -1,99 +1,189 @@
 <script setup>
+import { computed } from "vue";
 import { useStarWarsStore } from "../stores/starWarsStore";
 
 const store = useStarWarsStore();
 
-const chartOptions = {
-  chart: {
-    type: "bar",
-    backgroundColor: "transparent",
-    plotBackgroundColor: "transparent",
-    plotBorderWidth: 0,
-    plotShadow: false,
+const chartOptions = computed(() => [
+  {
+    chart: {
+      type: "bar",
+      backgroundColor: "transparent",
+      plotBackgroundColor: "transparent",
+      plotBorderWidth: 0,
+      plotShadow: false,
 
-    margin: [0, 0, 0, 0],
-    spacing: [0, 0, 0, 0],
-    borderWidth: 0,
+      margin: [0, 0, 0, 0],
+      spacing: [0, 0, 0, 0],
+      borderWidth: 0,
 
-    height: 52,
-    style: {
-      fontFamily: ["MuseoSansCyrl", "Arial", "sans - serif"],
-    },
-  },
-  title: {
-    text: "",
-  },
-  xAxis: {
-    visible: false,
-    minPadding: 0,
-    maxPadding: 0,
-  },
-  yAxis: {
-    visible: false,
-    minPadding: 0,
-    maxPadding: 0,
-    ceiling: null,
-    floor: null,
-  },
-  plotOptions: {
-    series: {
-      stacking: "percent",
-      dataLabels: {
-        enabled: true,
-        formatter: function () {
-          return Math.round((this.y / this.point.stackTotal) * 100) + "%";
-        },
-        style: {
-          color: "#121216",
-          fontSize: "16px",
-          textShadow: false,
-          textOutline: "none",
-        },
-        verticalAlign: "middle",
-        align: "left",
-        crop: false,
-        overflow: "none",
-        x: 16,
+      height: 52,
+      style: {
+        fontFamily: ["MuseoSansCyrl", "Arial", "sans - serif"],
       },
-      pointPadding: 0,
-      groupPadding: 0,
-      borderWidth: 2,
     },
-  },
+    title: {
+      text: "",
+    },
+    xAxis: {
+      visible: false,
+      minPadding: 0,
+      maxPadding: 0,
+    },
+    yAxis: {
+      visible: false,
+      minPadding: 0,
+      maxPadding: 0,
+      ceiling: null,
+      floor: null,
+    },
+    plotOptions: {
+      series: {
+        stacking: "percent",
+        dataLabels: {
+          enabled: true,
+          formatter: function () {
+            return Math.round((this.y / this.point.stackTotal) * 100) + "%";
+          },
+          style: {
+            color: "#121216",
+            fontSize: "16px",
+            textShadow: false,
+            textOutline: "none",
+          },
+          verticalAlign: "middle",
+          align: "left",
+          crop: false,
+          overflow: "none",
+          x: 16,
+        },
+        pointPadding: 0,
+        groupPadding: 0,
+        borderWidth: 2,
+      },
+    },
 
-  credits: {
-    enabled: false,
-  },
-  legend: {
-    enabled: false,
-  },
-  series: [
-    {
-      name: "Кораблей класса Starfighter",
-      data: [975],
-      color: "#F7BC19",
+    credits: {
+      enabled: false,
     },
-    {
-      name: "Остальных",
-      data: [1525],
-      color: "#F96E1A",
+    legend: {
+      enabled: false,
     },
-  ],
-  tooltip: {
-    formatter: function () {
-      return (
-        this.x +
-        ": " +
-        this.series.name +
-        " (" +
-        this.y +
-        " кораблей, " +
-        Math.round((this.y / this.point.stackTotal) * 100) +
-        "%)"
-      );
+    series: [
+      {
+        name: "Остальных",
+        data: [store.starships.total],
+        color: "#F7BC19",
+      },
+      {
+        name: "Кораблей класса Starfighter",
+        data: [store.starfighters.total],
+        color: "#F96E1A",
+      },
+    ],
+    tooltip: {
+      formatter: function () {
+        return (
+          this.series.name +
+          " " +
+          this.y +
+          " (" +
+          Math.round((this.y / this.point.stackTotal) * 100) +
+          "%)"
+        );
+      },
     },
   },
-};
+  {
+    chart: {
+      type: "bar",
+      backgroundColor: "transparent",
+      plotBackgroundColor: "transparent",
+      plotBorderWidth: 0,
+      plotShadow: false,
+
+      margin: [0, 0, 0, 0],
+      spacing: [0, 0, 0, 0],
+      borderWidth: 0,
+
+      height: 52,
+      style: {
+        fontFamily: ["MuseoSansCyrl", "Arial", "sans - serif"],
+      },
+    },
+    title: {
+      text: "",
+    },
+    xAxis: {
+      visible: false,
+      minPadding: 0,
+      maxPadding: 0,
+    },
+    yAxis: {
+      visible: false,
+      minPadding: 0,
+      maxPadding: 0,
+      ceiling: null,
+      floor: null,
+    },
+    plotOptions: {
+      series: {
+        stacking: "percent",
+        dataLabels: {
+          enabled: true,
+          formatter: function () {
+            return Math.round((this.y / this.point.stackTotal) * 100) + "%";
+          },
+          style: {
+            color: "#121216",
+            fontSize: "16px",
+            textShadow: false,
+            textOutline: "none",
+          },
+          verticalAlign: "middle",
+          align: "left",
+          crop: false,
+          overflow: "none",
+          x: 16,
+        },
+        pointPadding: 0,
+        groupPadding: 0,
+        borderWidth: 2,
+      },
+    },
+
+    credits: {
+      enabled: false,
+    },
+    legend: {
+      enabled: false,
+    },
+    series: [
+      {
+        name: "Остальных",
+        data: [store.starships.inFilm || 0],
+        color: "#F7BC19",
+      },
+      {
+        name: "Кораблей класса Starfighter",
+        data: [store.starfighters.inFilm || 1],
+        color: "#F96E1A",
+      },
+    ],
+    tooltip: {
+      formatter: function () {
+        return (
+          this.series.name +
+          " " +
+          this.y +
+          " (" +
+          Math.round((this.y / this.point.stackTotal) * 100) +
+          "%)"
+        );
+      },
+    },
+  },
+]);
 </script>
 
 <template>
@@ -107,7 +197,10 @@ const chartOptions = {
             <h3 class="data-pair__value">{{ store.starships.total }}</h3>
           </div>
           <div class="w-5/6">
-            <highcharts class="rounded-xl" :options="chartOptions"></highcharts>
+            <highcharts
+              class="rounded-xl"
+              :options="chartOptions[0]"
+            ></highcharts>
           </div>
         </div>
         <div class="flex">
@@ -116,7 +209,10 @@ const chartOptions = {
             <h3 class="data-pair__value">{{ store.starships.inFilm }}</h3>
           </div>
           <div class="w-5/6">
-            <highcharts class="rounded-xl" :options="chartOptions"></highcharts>
+            <highcharts
+              class="rounded-xl"
+              :options="chartOptions[1]"
+            ></highcharts>
           </div>
         </div>
       </div>
