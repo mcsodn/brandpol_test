@@ -1,6 +1,7 @@
 <script setup>
 import { useStarWarsStore } from "./stores/starWarsStore";
 import StatisticCards from "./components/StatisticCards.vue";
+import StarshipsStatistics from "./components/StarshipsStatistics.vue";
 import { onMounted, ref } from "vue";
 
 const store = useStarWarsStore();
@@ -58,27 +59,7 @@ onMounted(() => {
       <StatisticCards />
     </div>
     <div class="section-wrapper">
-      <Card class="card-style" style="box-shadow: 2px 2px 14px 0px #01174f17">
-        <template #content>
-          <div class="card-content-wrapper">
-            <h2 class="chart-card-title">Корабли</h2>
-            <div class="flex">
-              <div class="data-pair w-1/6">
-                <span class="data-pair__label">Всего</span>
-                <h3 class="data-pair__value">{{ store.starships.total }}</h3>
-              </div>
-              <div class="w-5/6 rounded-lg bg-amber-600"></div>
-            </div>
-            <div class="flex">
-              <div class="data-pair w-1/6">
-                <span class="data-pair__label">В фильме</span>
-                <h3 class="data-pair__value">{{ store.starships.inFilm }}</h3>
-              </div>
-              <div class="w-5/6 rounded-lg bg-amber-600"></div>
-            </div>
-          </div>
-        </template>
-      </Card>
+      <StarshipsStatistics />
     </div>
     <div class="section-wrapper">
       <Card class="card-style" style="box-shadow: 2px 2px 14px 0px #01174f17">
