@@ -55,7 +55,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div v-else class="flex flex-col gap-1">
+    <div v-else class="flex w-full flex-col items-center gap-1">
       <div class="section-wrapper">
         <StatisticCards />
       </div>
