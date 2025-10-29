@@ -215,6 +215,10 @@ const chartOptions = computed(() => [
             ></highcharts>
           </div>
         </div>
+        <div class="flex justify-center gap-8">
+          <span class="legend-label__orange">Кораблей класса Starfighter</span>
+          <span class="legend-label__yellow">Остальных</span>
+        </div>
       </div>
     </template>
   </Card>

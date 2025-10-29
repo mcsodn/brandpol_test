@@ -74,7 +74,27 @@
 }
 
 .card-content-wrapper {
-  @apply flex flex-col gap-5;
+  @apply text-customblack flex flex-col gap-5;
+}
+
+.legend-label__orange::before {
+  content: "";
+  display: inline-block;
+  margin-right: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #f96e1a;
+}
+
+.legend-label__yellow::before {
+  content: "";
+  display: inline-block;
+  margin-right: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #f7bc19;
 }
 
 .hidden {
