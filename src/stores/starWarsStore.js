@@ -14,11 +14,19 @@ export const useStarWarsStore = defineStore("starWars", {
     films: [],
     selectedFilm: null,
 
+    allPlanets: [],
+    allCharacters: [],
+    allVehicles: [],
+    allSpecies: [],
+    allStarships: [],
+    allStarfighters: [],
+
     planets: { total: 0, inFilm: 0 },
     characters: { total: 0, inFilm: 0 },
     vehicles: { total: 0, inFilm: 0 },
     species: { total: 0, inFilm: 0 },
     starships: { total: 0, inFilm: 0 },
+    starfighters: { total: 0, inFilm: 0 },
   }),
 
   getters: {
@@ -59,20 +67,37 @@ export const useStarWarsStore = defineStore("starWars", {
         const response = await axios.get("https://swapi.dev/api/films/");
         this.films = response.data.results;
         if (this.films.length > 0) {
-          await this.calcStats();
+          await this.loadData();
         }
       } catch (error) {
         this.error = "Failed to fetch films";
         console.error("Error fetching films:", error);
       } finally {
         this.loading.films = false;
+        console.log(this.starfighters);
       }
     },
 
-    async calcStats() {
-      this.loading.statistics = true;
-      this.error = null;
+    async loadData() {
+      async function fetchPage(url, allResults = []) {
+        try {
+          const response = await axios.get(url);
+          const data = response.data;
 
+          // Добавляем результаты текущей страницы
+          allResults.push(...data.results);
+
+          // Если есть следующая страница — рекурсивно вызываем функцию
+          if (data.next) {
+            return fetchPage(data.next, allResults);
+          }
+
+          return allResults; // Возвращаем итоговый массив
+        } catch (error) {
+          console.error("Ошибка при запросе к API:", error);
+          throw error;
+        }
+      }
       try {
         const [
           planetsRes,
@@ -81,36 +106,52 @@ export const useStarWarsStore = defineStore("starWars", {
           speciesRes,
           starshipsRes,
         ] = await Promise.all([
-          axios.get("https://swapi.dev/api/planets/"),
-          axios.get("https://swapi.dev/api/people/"),
-          axios.get("https://swapi.dev/api/vehicles/"),
-          axios.get("https://swapi.dev/api/species/"),
-          axios.get("https://swapi.dev/api/starships/"),
+          fetchPage("https://swapi.dev/api/planets/"),
+          fetchPage("https://swapi.dev/api/people/"),
+          fetchPage("https://swapi.dev/api/vehicles/"),
+          fetchPage("https://swapi.dev/api/species/"),
+          fetchPage("https://swapi.dev/api/starships/"),
         ]);
 
-        this.planets.total = planetsRes.data.count;
-        this.characters.total = charactersRes.data.count;
-        this.vehicles.total = vehiclesRes.data.count;
-        this.species.total = speciesRes.data.count;
-        this.starships.total = starshipsRes.data.count;
+        this.allPlanets = planetsRes;
+        this.allCharacters = charactersRes;
+        this.allVehicles = vehiclesRes;
+        this.allSpecies = speciesRes;
+        this.allStarships = starshipsRes;
+        this.allStarfighters = starshipsRes.filter(
+          (v) =>
+            v.starship_class.toLowerCase().includes("starfighter") ||
+            v.name.toLowerCase().includes("starfighter") ||
+            v.model.toLowerCase().includes("starfighter"),
+        );
 
-        if (!this.selectedFilm) return;
-
-        this.planets.inFilm = this.selectedFilm.planets.length;
-        this.characters.inFilm = this.selectedFilm.characters.length;
-        this.vehicles.inFilm = this.selectedFilm.vehicles.length;
-        this.species.inFilm = this.selectedFilm.species.length;
-        this.starships.inFilm = this.selectedFilm.starships.length;
+        this.planets.total = planetsRes.length;
+        this.characters.total = charactersRes.length;
+        this.vehicles.total = vehiclesRes.length;
+        this.species.total = speciesRes.length;
+        this.starships.total = starshipsRes.length;
+        this.starfighters.total = this.allStarfighters.length;
       } catch (error) {
-        this.error = "Failed to fetch statistics";
-        console.error("Error fetching statistics:", error);
-      } finally {
-        this.loading.statistics = false;
+        this.error = "Failed to load all data";
+        console.error("Error loading all data:", error);
       }
     },
 
     async selectFilm() {
-      await this.calcStats();
+      if (!this.selectedFilm) {
+        console.warn("Нет выбранного фильма. Ничего не считаем.");
+        return;
+      }
+
+      this.planets.inFilm = this.selectedFilm.planets.length;
+      this.characters.inFilm = this.selectedFilm.characters.length;
+      this.vehicles.inFilm = this.selectedFilm.vehicles.length;
+      this.species.inFilm = this.selectedFilm.species.length;
+      this.starships.inFilm = this.selectedFilm.starships.length;
+      this.starfighters.inFilm = this.allStarfighters.filter((v) =>
+        v.films.includes(this.selectedFilm.url),
+      ).length;
+      console.log(this.starfighters);
     },
   },
 });

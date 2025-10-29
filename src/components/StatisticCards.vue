@@ -1,10 +1,11 @@
 <script setup>
+import { computed } from "vue";
 import { useStarWarsStore } from "../stores/starWarsStore";
 import StatisticCard from "./StatisticCard.vue";
 
 const store = useStarWarsStore();
 
-const statsData = [
+const statsData = computed(() => [
   {
     title: "Планеты",
     totalLabel: "Всего планет",
@@ -41,7 +42,7 @@ const statsData = [
     percentage: store.speciesPercentage,
     colorClass: "text-pc-blue",
   },
-];
+]);
 </script>
 
 <template>
