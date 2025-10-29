@@ -10,7 +10,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mt-12 flex w-full flex-col items-center gap-4">
+  <div class="mt-12 flex w-full flex-col items-center gap-1">
     <div class="section-wrapper gap-4">
       <Select
         v-model="store.selectedFilm"
@@ -58,20 +58,34 @@ onMounted(() => {
       <StatisticCards />
     </div>
     <div class="section-wrapper">
-      <Card class="w-full">
-        <template #title>Корабли</template>
+      <Card class="card-style" style="box-shadow: 2px 2px 14px 0px #01174f17">
         <template #content>
-          <p class="m-0">Всего планет: 500</p>
-          <p class="m-0">Планет в фильме: 350</p>
+          <div class="card-content-wrapper">
+            <h2 class="chart-card-title">Корабли</h2>
+            <div class="flex">
+              <div class="data-pair w-1/6">
+                <span class="data-pair__label">Всего</span>
+                <h3 class="data-pair__value">{{ store.starships.total }}</h3>
+              </div>
+              <div class="w-5/6 rounded-lg bg-amber-600"></div>
+            </div>
+            <div class="flex">
+              <div class="data-pair w-1/6">
+                <span class="data-pair__label">В фильме</span>
+                <h3 class="data-pair__value">{{ store.starships.inFilm }}</h3>
+              </div>
+              <div class="w-5/6 rounded-lg bg-amber-600"></div>
+            </div>
+          </div>
         </template>
       </Card>
     </div>
     <div class="section-wrapper">
-      <Card class="w-full">
-        <template #title>Корабли по классам</template>
+      <Card class="card-style" style="box-shadow: 2px 2px 14px 0px #01174f17">
         <template #content>
-          <p class="m-0">Всего планет: 500</p>
-          <p class="m-0">Планет в фильме: 350</p>
+          <div class="card-content-wrapper">
+            <h2 class="chart-card-title">Корабли по классам</h2>
+          </div>
         </template>
       </Card>
     </div>

@@ -34,6 +34,27 @@
   @apply flex w-full max-w-[1440px] min-w-[1318px] items-start px-4;
 }
 
+.card-style {
+  @apply bg-customwhite! w-full rounded-3xl! pl-1;
+}
+
+.data-pair {
+  @apply flex flex-col gap-2 leading-none;
+}
+.data-pair__label {
+  @apply text-customgray m-0;
+}
+.data-pair__value {
+  @apply m-0 text-[32px];
+}
+
+.chart-card-title::before {
+  content: url(../icons/drag_icon.svg);
+  vertical-align: middle;
+  margin-right: 1rem;
+  line-height: 100%;
+}
+
 .statistic-card-title::before {
   content: url(../icons/drag_icon.svg);
   vertical-align: middle;
@@ -50,6 +71,10 @@
 
 .percent-style {
   @apply leading-[140%] font-semibold;
+}
+
+.card-content-wrapper {
+  @apply flex flex-col gap-5;
 }
 
 .hidden {

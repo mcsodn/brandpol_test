@@ -5,6 +5,8 @@ import PrimeVue from "primevue/config";
 import Aura from "@primeuix/themes/aura";
 import "primeicons/primeicons.css";
 
+import HighchartsVue from "highcharts-vue";
+
 import "./assets/styles/style.css";
 import App from "./App.vue";
 
@@ -26,6 +28,7 @@ app.use(PrimeVue, {
     },
   },
 });
+app.use(HighchartsVue);
 
 app.component("Select", Select);
 app.component("Button", Button);
