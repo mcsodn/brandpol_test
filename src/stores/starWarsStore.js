@@ -27,6 +27,8 @@ export const useStarWarsStore = defineStore("starWars", {
     species: { total: 0, inFilm: 0 },
     starships: { total: 0, inFilm: 0 },
     starfighters: { total: 0, inFilm: 0 },
+
+    starshipsTypes: { total: null, inFilm: null },
   }),
 
   getters: {
@@ -74,7 +76,6 @@ export const useStarWarsStore = defineStore("starWars", {
         console.error("Error fetching films:", error);
       } finally {
         this.loading.films = false;
-        console.log(this.starfighters);
       }
     },
 
@@ -131,6 +132,22 @@ export const useStarWarsStore = defineStore("starWars", {
         this.species.total = speciesRes.length;
         this.starships.total = starshipsRes.length;
         this.starfighters.total = this.allStarfighters.length;
+        this.starshipsTypes.total = [
+          ...new Set(
+            this.allStarships.map((v) => v.starship_class.toLowerCase()),
+          ),
+        ]
+          .map((v) => {
+            return {
+              name: v,
+              data: [
+                this.allStarships
+                  .map((v) => v.starship_class.toLowerCase())
+                  .filter((el) => el === v).length,
+              ],
+            };
+          })
+          .sort((a, b) => b.data[0] - a.data[0]);
       } catch (error) {
         this.error = "Failed to load all data";
         console.error("Error loading all data:", error);
@@ -151,7 +168,26 @@ export const useStarWarsStore = defineStore("starWars", {
       this.starfighters.inFilm = this.allStarfighters.filter((v) =>
         v.films.includes(this.selectedFilm.url),
       ).length;
-      console.log(this.starfighters);
+
+      const shipsInFilmFilter = this.selectedFilm.starships.map(
+        (v) => this.allStarships.filter((el) => el.url === v)[0],
+      );
+      this.starshipsTypes.inFilm = [
+        ...new Set(
+          shipsInFilmFilter.map((v) => v.starship_class.toLowerCase()),
+        ),
+      ]
+        .map((v) => {
+          return {
+            name: v,
+            data: [
+              shipsInFilmFilter.filter(
+                (el) => el.starship_class.toLowerCase() === v,
+              ).length,
+            ],
+          };
+        })
+        .sort((a, b) => b.data[0] - a.data[0]);
     },
   },
 });
