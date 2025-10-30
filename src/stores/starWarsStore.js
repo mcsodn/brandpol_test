@@ -65,9 +65,24 @@ export const useStarWarsStore = defineStore("starWars", {
       this.loading.films = true;
       this.error = null;
 
+      const starWarsFilms = {
+        "The Phantom Menace": "Эпизод I: Скрытая угроза",
+        "Attack of the Clones": "Эпизод II: Атака клонов",
+        "Revenge of the Sith": "Эпизод III: Месть ситхов",
+        "A New Hope": "Эпизод IV: Новая надежда",
+        "The Empire Strikes Back": "Эпизод V: Империя наносит ответный удар",
+        "Return of the Jedi": "Эпизод VI: Возвращение джедая",
+      };
+
       try {
         const response = await axios.get("https://swapi.dev/api/films/");
-        this.films = response.data.results;
+        this.films = response.data.results.map((film) => {
+          return {
+            ...film,
+            ruTitle: starWarsFilms[film.title],
+          };
+        });
+
         if (this.films.length > 0) {
           await this.loadData();
         }

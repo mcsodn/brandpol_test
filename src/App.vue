@@ -17,7 +17,7 @@ onMounted(() => {
       <Select
         v-model="store.selectedFilm"
         :options="store.films"
-        optionLabel="title"
+        optionLabel="ruTitle"
         placeholder="Все фильмы вселенной Star Wars"
         class="w-full md:w-1/4"
         filter
