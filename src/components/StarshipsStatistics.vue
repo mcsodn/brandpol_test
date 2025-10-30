@@ -203,7 +203,7 @@ const chartOptions = computed(() => [
             ></highcharts>
           </div>
         </div>
-        <div class="flex">
+        <div class="flex" v-if="store.selectedFilm">
           <div class="data-pair w-1/6 gap-1!">
             <span class="data-pair__label">В фильме</span>
             <h3 class="data-pair__value">{{ store.starships.inFilm }}</h3>

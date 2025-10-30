@@ -44,7 +44,7 @@ const props = defineProps({
           <span class="data-pair__label">{{ props.totalLabel }}</span>
           <h3 class="data-pair__value">{{ props.total }}</h3>
         </div>
-        <div class="data-pair">
+        <div class="data-pair" v-if="props.inFilm">
           <span class="data-pair__label">{{ props.inFilmLabel }}</span>
           <div class="flex gap-2">
             <h3 class="data-pair__value">{{ props.inFilm }}</h3>
