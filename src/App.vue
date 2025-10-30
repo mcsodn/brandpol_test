@@ -2,6 +2,7 @@
 import { useStarWarsStore } from "./stores/starWarsStore";
 import StatisticCards from "./components/StatisticCards.vue";
 import StarshipsStatistics from "./components/StarshipsStatistics.vue";
+import StarshipsClassStatistics from "./components/StarshipsClassStatistics.vue";
 import { onMounted, ref } from "vue";
 
 const store = useStarWarsStore();
@@ -56,21 +57,11 @@ onMounted(() => {
       </div>
     </div>
     <div v-else class="flex w-full flex-col items-center gap-1">
-      <div class="section-wrapper">
-        <StatisticCards />
-      </div>
-      <div class="section-wrapper">
-        <StarshipsStatistics />
-      </div>
-      <div class="section-wrapper">
-        <Card class="card-style" style="box-shadow: 2px 2px 14px 0px #01174f17">
-          <template #content>
-            <div class="card-content-wrapper">
-              <h2 class="chart-card-title">Корабли по классам</h2>
-            </div>
-          </template>
-        </Card>
-      </div>
+      <StatisticCards />
+
+      <StarshipsStatistics />
+
+      <StarshipsClassStatistics />
     </div>
   </div>
 </template>

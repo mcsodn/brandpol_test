@@ -187,39 +187,43 @@ const chartOptions = computed(() => [
 </script>
 
 <template>
-  <Card class="card-style" style="box-shadow: 2px 2px 14px 0px #01174f17">
-    <template #content>
-      <div class="card-content-wrapper">
-        <h2 class="chart-card-title">Корабли</h2>
-        <div class="flex">
-          <div class="data-pair w-1/6 gap-1!">
-            <span class="data-pair__label">Всего</span>
-            <h3 class="data-pair__value">{{ store.starships.total }}</h3>
+  <div class="section-wrapper">
+    <Card class="card-style" style="box-shadow: 2px 2px 14px 0px #01174f17">
+      <template #content>
+        <div class="card-content-wrapper">
+          <h2 class="chart-card-title">Корабли</h2>
+          <div class="flex">
+            <div class="data-pair w-1/6 gap-1!">
+              <span class="data-pair__label">Всего</span>
+              <h3 class="data-pair__value">{{ store.starships.total }}</h3>
+            </div>
+            <div class="w-5/6">
+              <highcharts
+                class="rounded-xl"
+                :options="chartOptions[0]"
+              ></highcharts>
+            </div>
           </div>
-          <div class="w-5/6">
-            <highcharts
-              class="rounded-xl"
-              :options="chartOptions[0]"
-            ></highcharts>
+          <div class="flex" v-if="store.selectedFilm">
+            <div class="data-pair w-1/6 gap-1!">
+              <span class="data-pair__label">В фильме</span>
+              <h3 class="data-pair__value">{{ store.starships.inFilm }}</h3>
+            </div>
+            <div class="w-5/6">
+              <highcharts
+                class="rounded-xl"
+                :options="chartOptions[1]"
+              ></highcharts>
+            </div>
+          </div>
+          <div class="flex justify-center gap-8">
+            <span class="legend-label__orange"
+              >Кораблей класса Starfighter</span
+            >
+            <span class="legend-label__yellow">Остальных</span>
           </div>
         </div>
-        <div class="flex" v-if="store.selectedFilm">
-          <div class="data-pair w-1/6 gap-1!">
-            <span class="data-pair__label">В фильме</span>
-            <h3 class="data-pair__value">{{ store.starships.inFilm }}</h3>
-          </div>
-          <div class="w-5/6">
-            <highcharts
-              class="rounded-xl"
-              :options="chartOptions[1]"
-            ></highcharts>
-          </div>
-        </div>
-        <div class="flex justify-center gap-8">
-          <span class="legend-label__orange">Кораблей класса Starfighter</span>
-          <span class="legend-label__yellow">Остальных</span>
-        </div>
-      </div>
-    </template>
-  </Card>
+      </template>
+    </Card>
+  </div>
 </template>

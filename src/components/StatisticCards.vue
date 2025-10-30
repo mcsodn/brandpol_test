@@ -46,17 +46,19 @@ const statsData = computed(() => [
 </script>
 
 <template>
-  <div class="flex w-full gap-1">
-    <StatisticCard
-      v-for="data in statsData"
-      :key="data.title"
-      :title="data.title"
-      :total-label="data.totalLabel"
-      :in-film-label="data.inFilmLabel"
-      :total="data.total"
-      :in-film="data.inFilm"
-      :percentage="data.percentage"
-      :color-class="data.colorClass"
-    />
+  <div class="section-wrapper">
+    <div class="flex w-full gap-1">
+      <StatisticCard
+        v-for="data in statsData"
+        :key="data.title"
+        :title="data.title"
+        :total-label="data.totalLabel"
+        :in-film-label="data.inFilmLabel"
+        :total="data.total"
+        :in-film="data.inFilm"
+        :percentage="data.percentage"
+        :color-class="data.colorClass"
+      />
+    </div>
   </div>
 </template>
