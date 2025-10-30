@@ -82,13 +82,21 @@ const chartOptions = computed(() => [
       },
     ],
     tooltip: {
+      borderRadius: 6,
+      outside: true,
+      style: {
+        color: "#121216",
+        fontSize: "16px",
+        fontFamily: "MuseoSansCyrl, Arial, sans-serif",
+      },
       formatter: function () {
         return (
+          "<span style='font-size:12px; color:#8E8E93; text-align:center;'>Всего</span><br>" +
           this.series.name +
-          " " +
+          " <b>" +
           this.y +
-          " (" +
-          Math.round((this.y / this.point.stackTotal) * 100) +
+          "</b> (" +
+          Math.round(this.point.percentage) +
           "%)"
         );
       },
@@ -171,13 +179,21 @@ const chartOptions = computed(() => [
       },
     ],
     tooltip: {
+      borderRadius: 6,
+      outside: true,
+      style: {
+        color: "#121216",
+        fontSize: "16px",
+        fontFamily: "MuseoSansCyrl, Arial, sans-serif",
+      },
       formatter: function () {
         return (
+          "<span style='font-size:12px; color:#8E8E93; text-align:center;'>В фильме</span><br>" +
           this.series.name +
-          " " +
+          " <b>" +
           this.y +
-          " (" +
-          Math.round((this.y / this.point.stackTotal) * 100) +
+          "</b> (" +
+          Math.round(this.point.percentage) +
           "%)"
         );
       },
