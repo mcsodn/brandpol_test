@@ -23,7 +23,7 @@ const chartOptions = computed(() => [
 
       height: 52,
       style: {
-        fontFamily: ["MuseoSansCyrl", "Arial", "sans - serif"],
+        fontFamily: ["MuseoSansCyrl", "Arial", "sans-serif"],
       },
     },
     title: {
