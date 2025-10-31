@@ -1,14 +1,52 @@
 <script setup>
 import { useStarWarsStore } from "./stores/starWarsStore";
+import { useWidgetsStore } from "./stores/widgetStore";
 import StatisticCards from "./components/StatisticCards.vue";
 import StarshipsStatistics from "./components/StarshipsStatistics.vue";
 import StarshipsClassStatistics from "./components/StarshipsClassStatistics.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
+// стор данных
 const store = useStarWarsStore();
+// стор виджетов
+const widgetStore = useWidgetsStore();
+//локальный стор виджетов
+const localWidgets = ref({
+  ...widgetStore,
+  changeVisibility(widget) {
+    this[widget] = !this[widget];
+  },
+});
+
+const unsubscribe = widgetStore.$subscribe((mutation, state) => {
+  // Обновляем локальное состояние при изменении глобального
+  localWidgets.value = {
+    ...state,
+    changeVisibility(widget) {
+      this[widget] = !this[widget];
+    },
+  };
+});
+
+onUnmounted(() => {
+  unsubscribe();
+});
+
+const applyChanges = () => {
+  // Копируем локальные изменения в стор
+  widgetStore.$patch({ ...localWidgets.value });
+  // Закрываем всплывашку
+  op.value.hide();
+};
+
 onMounted(() => {
   store.getAllFilms();
 });
+
+const op = ref();
+const toggle = (event) => {
+  op.value.toggle(event);
+};
 </script>
 
 <template>
@@ -29,7 +67,26 @@ onMounted(() => {
         severity="contrast"
         variant="text"
         class="text-linkblue!"
+        @click="toggle"
       />
+      <Popover ref="op">
+        <div class="flex w-[302px] flex-col gap-0.5">
+          <template v-for="widget in widgetStore.validKeys" :key="widget">
+            <Button
+              v-model="localWidgets[widget]"
+              :label="widgetStore.getWidgetName(widget)"
+              :icon="localWidgets[widget] ? 'pi pi-eye' : 'pi pi-eye-slash'"
+              severity="contrast"
+              variant="text"
+              iconPos="right"
+              class="w-full justify-between!"
+              @click="localWidgets.changeVisibility(widget)"
+            />
+            <Divider class="m-0!" />
+          </template>
+          <Button label="Применить" class="mt-4!" @click="applyChanges" />
+        </div>
+      </Popover>
     </div>
     <div
       v-if="store.loading.films || store.loading.statistics"
@@ -59,9 +116,9 @@ onMounted(() => {
     <div v-else class="flex w-full flex-col items-center gap-1">
       <StatisticCards />
 
-      <StarshipsStatistics />
+      <StarshipsStatistics v-if="widgetStore['starships']" />
 
-      <StarshipsClassStatistics />
+      <StarshipsClassStatistics v-if="widgetStore['starshipsTypes']" />
     </div>
   </div>
 </template>

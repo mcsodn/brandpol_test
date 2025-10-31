@@ -1,9 +1,11 @@
 <script setup>
 import { computed } from "vue";
 import { useStarWarsStore } from "../stores/starWarsStore";
+import { useWidgetsStore } from "../stores/widgetStore";
 import StatisticCard from "./StatisticCard.vue";
 
 const store = useStarWarsStore();
+const widgetStore = useWidgetsStore();
 
 const statsData = computed(() => [
   {
@@ -14,6 +16,7 @@ const statsData = computed(() => [
     inFilm: store.planets.inFilm,
     percentage: store.planetPercentage,
     colorClass: "text-pc-orange",
+    widgetName: "planets",
   },
   {
     title: "Персонажи",
@@ -23,6 +26,7 @@ const statsData = computed(() => [
     inFilm: store.characters.inFilm,
     percentage: store.characterPercentage,
     colorClass: "text-pc-green",
+    widgetName: "characters",
   },
   {
     title: "Транспортные средства",
@@ -32,6 +36,7 @@ const statsData = computed(() => [
     inFilm: store.vehicles.inFilm,
     percentage: store.vehiclePercentage,
     colorClass: "text-pc-yellow",
+    widgetName: "vehicles",
   },
   {
     title: "Виды существ",
@@ -41,6 +46,7 @@ const statsData = computed(() => [
     inFilm: store.species.inFilm,
     percentage: store.speciesPercentage,
     colorClass: "text-pc-blue",
+    widgetName: "species",
   },
 ]);
 </script>
@@ -58,6 +64,8 @@ const statsData = computed(() => [
         :in-film="data.inFilm"
         :percentage="data.percentage"
         :color-class="data.colorClass"
+        :widget="data.widgetName"
+        :display="widgetStore[data.widgetName]"
       />
     </div>
   </div>

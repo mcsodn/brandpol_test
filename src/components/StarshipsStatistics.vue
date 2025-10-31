@@ -1,9 +1,12 @@
 <script setup>
 import { computed } from "vue";
 import { useStarWarsStore } from "../stores/starWarsStore";
+import { useWidgetsStore } from "../stores/widgetStore";
 import VisibilityButton from "./VisibilityButton.vue";
 
 const store = useStarWarsStore();
+const widgetStore = useWidgetsStore();
+const widgetName = "starships";
 
 const chartOptions = computed(() => [
   {
@@ -209,8 +212,10 @@ const chartOptions = computed(() => [
       <template #content>
         <div class="card-content-wrapper">
           <div class="flex justify-between">
-            <h2 class="chart-card-title">Корабли</h2>
-            <VisibilityButton />
+            <h2 class="chart-card-title">
+              {{ widgetStore.getWidgetName(widgetName) }}
+            </h2>
+            <VisibilityButton :widget="widgetName" />
           </div>
           <div class="flex">
             <div class="data-pair w-1/6 gap-1!">

@@ -30,16 +30,28 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  widget: {
+    type: String,
+    required: true,
+  },
+  display: {
+    type: Boolean,
+    required: true,
+  },
 });
 </script>
 
 <template>
-  <Card class="card-style" style="box-shadow: 2px 2px 14px 0px #01174f17">
+  <Card
+    class="card-style"
+    style="box-shadow: 2px 2px 14px 0px #01174f17"
+    v-if="display"
+  >
     <template #content>
       <div class="card-content-wrapper">
         <div class="flex w-full items-center justify-between gap-4">
           <h2 class="statistic-card-title grow">{{ props.title }}</h2>
-          <VisibilityButton />
+          <VisibilityButton :widget="props.widget" />
         </div>
         <div class="data-pair">
           <span class="data-pair__label">{{ props.totalLabel }}</span>

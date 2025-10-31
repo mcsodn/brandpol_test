@@ -4,6 +4,7 @@ import { useStarWarsStore } from "../stores/starWarsStore";
 import VisibilityButton from "./VisibilityButton.vue";
 
 const store = useStarWarsStore();
+const widgetName = "starshipsTypes";
 
 const chartOptions = computed(() => {
   if (!store.starshipsTypes?.total?.length) {
@@ -107,7 +108,7 @@ const chartOptions = computed(() => {
         <div class="card-content-wrapper gap-2!">
           <div class="flex justify-between">
             <h2 class="chart-card-title">Корабли по классам</h2>
-            <VisibilityButton />
+            <VisibilityButton :widget="widgetName" />
           </div>
           <highcharts
             class="rounded-xl"
