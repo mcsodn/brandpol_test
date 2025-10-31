@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import { useStarWarsStore } from "../stores/starWarsStore";
+import VisibilityButton from "./VisibilityButton.vue";
 
 const store = useStarWarsStore();
 
@@ -207,7 +208,10 @@ const chartOptions = computed(() => [
     <Card class="card-style" style="box-shadow: 2px 2px 14px 0px #01174f17">
       <template #content>
         <div class="card-content-wrapper">
-          <h2 class="chart-card-title">Корабли</h2>
+          <div class="flex justify-between">
+            <h2 class="chart-card-title">Корабли</h2>
+            <VisibilityButton />
+          </div>
           <div class="flex">
             <div class="data-pair w-1/6 gap-1!">
               <span class="data-pair__label">Всего</span>

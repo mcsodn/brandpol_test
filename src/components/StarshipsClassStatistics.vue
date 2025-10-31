@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import { useStarWarsStore } from "../stores/starWarsStore";
+import VisibilityButton from "./VisibilityButton.vue";
 
 const store = useStarWarsStore();
 
@@ -104,7 +105,10 @@ const chartOptions = computed(() => {
     <Card class="card-style" style="box-shadow: 2px 2px 14px 0px #01174f17">
       <template #content>
         <div class="card-content-wrapper gap-2!">
-          <h2 class="chart-card-title">Корабли по классам</h2>
+          <div class="flex justify-between">
+            <h2 class="chart-card-title">Корабли по классам</h2>
+            <VisibilityButton />
+          </div>
           <highcharts
             class="rounded-xl"
             :options="chartOptions[0]"

@@ -1,5 +1,6 @@
 <script setup>
-// Определяем пропсы
+import VisibilityButton from "./VisibilityButton.vue";
+
 const props = defineProps({
   title: {
     type: String,
@@ -38,7 +39,7 @@ const props = defineProps({
       <div class="card-content-wrapper">
         <div class="flex w-full items-center justify-between gap-4">
           <h2 class="statistic-card-title grow">{{ props.title }}</h2>
-          <img src="./../assets/icons/ext_icon.svg" alt="" />
+          <VisibilityButton />
         </div>
         <div class="data-pair">
           <span class="data-pair__label">{{ props.totalLabel }}</span>
