@@ -81,7 +81,7 @@ const toggle = (event) => {
               severity="contrast"
               variant="text"
               iconPos="right"
-              class="w-full justify-between!"
+              class="custom-icon-button w-full justify-between!"
               @click="localWidgets.changeVisibility(widget)"
             />
             <Divider class="m-0!" />
