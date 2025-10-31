@@ -36,7 +36,9 @@ const applyChanges = () => {
   // Копируем локальные изменения в стор
   widgetStore.$patch({ ...localWidgets.value });
   // Закрываем всплывашку
-  op.value.hide();
+  if (op.value && typeof op.value.hide === "function") {
+    op.value.hide();
+  }
 };
 
 onMounted(() => {
